@@ -1,1 +1,1 @@
-print "Maintaince Script"
+print "Maintenance Script"
