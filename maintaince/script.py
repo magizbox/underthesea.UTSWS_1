@@ -12,8 +12,9 @@ punctuations = [unicode(p) for p in punctuations]
 
 
 def character_segmenter(sentence):
-    sentence = re.match('^[a-zA-Z0-9._\s]+$', sentence)
+
     for punctuation in punctuations:
+        sentence = re.sub(r'[\?\.\!]+(?=[\?\.\!])', '', sentence)
         sentence = sentence.replace(punctuation, ' {} '.format(punctuation))
         sentence = ' '.join(sentence.split())
     return sentence
