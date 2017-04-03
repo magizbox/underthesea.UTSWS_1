@@ -9,14 +9,27 @@ punctuations = [p.decode("utf-8") for p in punctuations]
 
 
 def token_segmenter(token):
+    number = r"[0-9]|."
     digit_regex = "^\d+((\.\d+)|(\,\d))+$"
     # money_regex = "^\d+(\.\d+)+\w$"
     email_regex = "[^@]+@[^@]+\.[^@]+"
     web_regex = "^http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+$"
     web_2_regex = "\w+\.(com)"
+    money_regex = r"\d+(\.\d)+\w"
     special_character = "->"
-    specials = [digit_regex, email_regex, special_character, web_regex, web_2_regex]
+    special_regex = "\w+\/+\d"
+    character_regex = r"[a-z]"
+    specials = [money_regex, digit_regex, email_regex, special_character, web_regex, web_2_regex]
     for special in specials:
+        a = ""
+        if re.match(number, token):
+            for character in token:
+                if character in character_regex:
+                    a = character
+                    break
+            if a != "":
+                token = token.split(a)
+                print 0
         if re.match(special, token):
             return token
     for punctuation in punctuations:
