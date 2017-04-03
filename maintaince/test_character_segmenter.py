@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 
-from maintaince.character_segmenter_2 import character_segmenter
+from maintaince.character_segmenter import character_segmenter
 
 
 class TestCharacter_segmenter(TestCase):
@@ -11,7 +11,6 @@ class TestCharacter_segmenter(TestCase):
         actual = character_segmenter(input)
         expected = ("300.000.000.000")
         self.assertEqual(actual, expected)
-        # print 0
 
     def test_character_segmenter_2(self):
         input = u"Vụ “hot girl xứ Thanh” has 400.000 (USD) "
@@ -24,16 +23,18 @@ class TestCharacter_segmenter(TestCase):
         actual = character_segmenter(input)
         expected = ("abc@gmail.com")
         self.assertEqual(actual, expected)
-        print 0
 
-
-        self.assertEqual(actual, expected)
     def test_character_segmenter_4(self):
         input = u"giá chỉ từ 800.000đ - 3.000.000đ/1 vòng vàng charm. Một số xu hướng"
         actual = character_segmenter(input)
-        expected = u"giá chỉ từ 800.000đ - 3.000.000đ / 1 vòng vàng charm . Một số xu hướng"
+        expected = u"giá chỉ từ 800.000 đ - 3.000.000 đ / 1 vòng vàng charm . Một số xu hướng"
         self.assertEqual(actual, expected)
-        # return actual
+
+    def test_character_segmenter_41(self):
+        input = u"chỉ số 800.000VNĐ"
+        actual = character_segmenter(input)
+        expected = u"chỉ số 800.000 VNĐ"
+        self.assertEqual(actual, expected)
 
     def test_character_segmenter_5(self):
         input = u"tăng tốc từ 0-100 km/h trong 3,2 giây và tốc độ tối đa 330 km/h. Tại Việt Nam "
@@ -73,3 +74,16 @@ class TestCharacter_segmenter(TestCase):
         actual = character_segmenter(input)
         expected = u"->"
         self.assertEqual(actual, expected)
+
+    def test_character_segmenter_11(self):
+        input = u"3,4"
+        actual = character_segmenter(input)
+        expected = u"3,4"
+        self.assertEqual(actual, expected)
+
+    def test_character_segmenter_12(self):
+        input = u"google.com"
+        actual = character_segmenter(input)
+        expected = u"google.com"
+        self.assertEqual(actual, expected)
+

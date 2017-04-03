@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
-import os
-import re
+from os import listdir
 
-punctuations = open("punctuation.txt", "r").read().splitlines()
+import re
+from os.path import dirname, join
+
+punctuations = open(join(dirname(__file__), "punctuation.txt"), "r").read().splitlines()
 punctuations = [p.decode("utf-8") for p in punctuations]
 
 
 def token_segmenter(token):
-    digit_regex = r"^\d+(\.\d+)+$"
-    money_regex = r"^\d+(\.\d+)+\w"
-    email_regex = r"[^@]+@[^@]+\.[^@]+"
-    url_regex = r""
-    specials = [digit_regex, email_regex, money_regex,url_regex]
+    digit_regex = "^\d+((\.\d+)|(\,\d))+$"
+    # money_regex = "^\d+(\.\d+)+\w$"
+    email_regex = "[^@]+@[^@]+\.[^@]+"
+    web_regex = "^http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+$"
+    web_2_regex = "\w+\.(com)"
+    special_character = "->"
+    specials = [digit_regex, email_regex, special_character, web_regex, web_2_regex]
     for special in specials:
         if re.match(special, token):
             return token
@@ -21,24 +25,19 @@ def token_segmenter(token):
 
 
 def character_segmenter(sentence):
-    tokens = re.split("(\ |/)", sentence)
+    tokens = re.split(" ", sentence)
     tokens = [token_segmenter(token) for token in tokens]
     output = u" ".join(tokens)
-    output = output.replace("  ", " ")
+    while "  " in output:
+        output = output.replace("  ", " ")
     return output
 
 
 if __name__ == '__main__':
-    file_names = os.listdir("../data/")
-    for file_name in file_names:
-        input = os.path.join("../data", file_name)
-        lines = open(input, 'r').read().splitlines()
-
-        segmented_lines = [character_segmenter(l) for l in lines]
-        content = zip(lines, segmented_lines)
-        content = "\n\n".join(["\n".join(item) for item in content])
-
-        output = os.path.join("../corpus/input", file_name)
-        open(output, "w").write(content)
-    print "finish"
-
+    file_path = join(dirname(dirname(__file__)), "data")
+    out_file_path = join(dirname(dirname(__file__)), "corpus", "input")
+    ids = listdir(file_path)
+    ids = ids[:10]
+    sentences = [open(join(out_file_path, id), "w").write(
+        character_segmenter(open(join(file_path, id), "r").read().decode('utf-8')).encode('utf-8')) for id in ids]
+    print 0
