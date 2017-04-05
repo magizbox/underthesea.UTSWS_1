@@ -99,3 +99,34 @@ class Test_TokenizeSentence(TestCase):
         actual = tokenize(text)
         expected = u"..."
         self.assertEqual(actual, expected)
+
+    def test_tokenize_14(self):
+        text = u"máy bay F-111"
+        actual = tokenize(text)
+        expected = u"máy bay F-111"
+        self.assertEqual(actual, expected)
+
+    def test_tokenize_15(self):
+        text = u"xem tại đây >>"
+        actual = tokenize(text)
+        expected = u"xem tại đây >>"
+        self.assertEqual(actual, expected)
+
+    def test_tokenize_16(self):
+        text = u"mô-men vô-lăng la-zăng"
+        actual = tokenize(text)
+        expected = u"mô-men vô-lăng la-zăng"
+        self.assertEqual(actual, expected)
+
+
+    def test_tokenize_17(self):
+        text = u"'1.729"
+        actual = tokenize(text)
+        expected = u"' 1.729"
+        self.assertEqual(actual, expected)
+
+    def test_tokenize_18(self):
+        text = u"' '000001"
+        actual = tokenize(text)
+        expected = u"' 000001"
+        self.assertEqual(actual, expected)
