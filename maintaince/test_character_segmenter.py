@@ -125,8 +125,3 @@ class Test_TokenizeSentence(TestCase):
         expected = u"' 1.729"
         self.assertEqual(actual, expected)
 
-    def test_tokenize_18(self):
-        text = u"' '000001"
-        actual = tokenize(text)
-        expected = u"' 000001"
-        self.assertEqual(actual, expected)
