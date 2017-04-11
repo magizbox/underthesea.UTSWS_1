@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
+<<<<<<< HEAD
 # digit_pattern = "\b\d+([\.,]\d+)*\b"
 # print re.match(digit_pattern, "9000b") is not None
 # print re.match(digit_pattern, "a\n9000b", re.MULTILINE) is None
@@ -24,3 +25,21 @@ print matched is None
 
 # matched_1 = re.match(digit_pattern, "300.000b", re.UNICODE)
 # print matched_1
+=======
+digit_pattern = r"\b.*đ\B"
+
+# expect matched
+print re.match(digit_pattern, "300", re.UNICODE) is not None
+
+print re.match(digit_pattern, "300.000", re.UNICODE) is not None
+
+print re.match(digit_pattern, "300.000.000", re.UNICODE) is not None
+
+
+# expect not match
+print re.match(digit_pattern, u"300đ", re.UNICODE) is None
+
+print re.match(digit_pattern, u"300.000đ", re.UNICODE) is None
+
+print re.match(digit_pattern, u"300.000.000đ", re.UNICODE) is None
+>>>>>>> origin/master

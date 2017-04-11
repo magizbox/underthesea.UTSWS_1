@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 
+<<<<<<< HEAD
 from tokenize_sentence import tokenize
+=======
+from maintaince.tokenize import tokenize
+>>>>>>> origin/master
 
 
 class Test_TokenizeSentence(TestCase):
@@ -124,3 +128,7 @@ class Test_TokenizeSentence(TestCase):
         actual = tokenize(text)
         expected = u"' 1.729"
         self.assertEqual(actual, expected)
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
